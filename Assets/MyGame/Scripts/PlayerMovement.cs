@@ -12,14 +12,10 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
     }
-    void Update()
-    {
-    }
-
     void FixedUpdate()
     {
         float v = Input.GetAxis("Vertical");
-        float h = Input.GetAxis("Horizontal");
+        float h = -Input.GetAxis("Horizontal");
 
         //rotate the player
         transform.Rotate(0, 0, h * rotation);
