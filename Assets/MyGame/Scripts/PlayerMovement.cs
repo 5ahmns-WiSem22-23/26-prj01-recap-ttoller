@@ -21,6 +21,6 @@ public class PlayerMovement : MonoBehaviour
         transform.Rotate(0, 0, h * rotation);
 
         //move the player in the direction it is facing
-        rb.AddForce(transform.right * acceleration * v);
+        rb.AddForce(-transform.up * acceleration * v);
     }
 }

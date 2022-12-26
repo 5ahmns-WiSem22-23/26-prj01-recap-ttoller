@@ -8,6 +8,8 @@ public class CameraFollow : MonoBehaviour
     private float speed = 2.0f;
     [SerializeField]
     private float zoomOutFactor = 2.0f;
+    [SerializeField]
+    private float defaultOrthographicSize = 1;
 
     void FixedUpdate()
     {
@@ -20,6 +22,6 @@ public class CameraFollow : MonoBehaviour
         this.transform.position = position;
 
         float distance = Vector3.Distance(player.transform.position, transform.position) + transform.position.z;
-        GetComponent<Camera>().orthographicSize = 5 + (distance * zoomOutFactor);
+        GetComponent<Camera>().orthographicSize = defaultOrthographicSize + (distance * zoomOutFactor);
     }
 }
