@@ -9,6 +9,7 @@ TagManager:
   - Package
   - DropArea
   - StarManager
+  - Enemy
   layers:
   - Default
   - TransparentFX

@@ -27,9 +27,17 @@ PrefabInstance:
       propertyPath: speed
       value: 60
       objectReference: {fileID: 0}
+    - target: {fileID: 3569455504040434536, guid: 8b7bce3ba62eae441b3b999a4f9a821e, type: 3}
+      propertyPath: maxVelocityTolerance
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 3569455504040434538, guid: 8b7bce3ba62eae441b3b999a4f9a821e, type: 3}
       propertyPath: m_Name
       value: AgressiveEnemyCar
+      objectReference: {fileID: 0}
+    - target: {fileID: 3569455504040434538, guid: 8b7bce3ba62eae441b3b999a4f9a821e, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 3569455504040434539, guid: 8b7bce3ba62eae441b3b999a4f9a821e, type: 3}
       propertyPath: m_RootOrder

@@ -61,13 +61,14 @@ public class PackageManager : MonoBehaviour
         {
             spawnPosition = GenerateSpawnPos();
         }
-        Debug.Log(spawnPosition);
-
         Instantiate(prefab, spawnPosition, Quaternion.identity);
     }
     private void SpawnPackage()
     {
+        //check if a package already exists
+        if (GameObject.FindGameObjectWithTag("Package") != null) return;
         SpawnObject(packagePrefab);
+        Debug.Log("Spawned package");
     }
     private Vector2 GenerateSpawnPos()
     {
