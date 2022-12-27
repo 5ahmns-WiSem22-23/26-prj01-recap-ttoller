@@ -16,6 +16,8 @@ public class PackageManager : MonoBehaviour
     private List<Collider2D> illegalSpawnAreas = new List<Collider2D>();
     private int packagesDelivered;
     private StarManager starManager;
+    private ArrowManager arrowManager;
+    private GameObject dropArea;
     private void Start()
     {
         foreach (string tag in illegalSpawnAreaTags)
@@ -24,6 +26,8 @@ public class PackageManager : MonoBehaviour
             illegalSpawnAreas.AddRange(obstacles);
         }
         starManager = GameObject.FindGameObjectWithTag("StarManager").GetComponent<StarManager>();
+        arrowManager = GetComponentInChildren<ArrowManager>();
+        dropArea = GameObject.FindGameObjectWithTag("DropArea");
         SpawnPackage();
     }
     private void OnTriggerEnter2D(Collider2D other)
@@ -43,6 +47,7 @@ public class PackageManager : MonoBehaviour
         hasPackage = true;
         packageCarry.SetActive(true);
         packageCarry.transform.position = transform.position;
+        arrowManager.SetTarget(dropArea);
         Destroy(package);
     }
     private void HandleDropArea()
@@ -53,7 +58,7 @@ public class PackageManager : MonoBehaviour
         starManager.UpdateStarLevel();
         SpawnPackage();
     }
-    public void SpawnObject(GameObject prefab)
+    public GameObject SpawnObject(GameObject prefab)
     {
         Vector2 spawnPosition = GenerateSpawnPos();
 
@@ -61,14 +66,14 @@ public class PackageManager : MonoBehaviour
         {
             spawnPosition = GenerateSpawnPos();
         }
-        Instantiate(prefab, spawnPosition, Quaternion.identity);
+        return Instantiate(prefab, spawnPosition, Quaternion.identity);
     }
     private void SpawnPackage()
     {
         //check if a package already exists
         if (GameObject.FindGameObjectWithTag("Package") != null) return;
-        SpawnObject(packagePrefab);
-        Debug.Log("Spawned package");
+        GameObject package = SpawnObject(packagePrefab);
+        arrowManager.SetTarget(package);
     }
     private Vector2 GenerateSpawnPos()
     {

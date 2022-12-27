@@ -11,7 +11,7 @@ public class StarManager : MonoBehaviour
     [SerializeField]
     private float starGainSteepness = 1.2f;
     [SerializeField]
-    private int maxEnemies = 25;
+    private int initialMaxEnemies = 10;
     [SerializeField]
     private Text packagesText;
     [SerializeField]
@@ -20,7 +20,9 @@ public class StarManager : MonoBehaviour
     private Image[] starImages;
     private int starLevel = 0;
     private PackageManager packageManager;
-    private int currentCars = 0;
+    public int currentCars = 0;
+    public int totalKills = 0;
+    public int maxEnemies = 10;
     private void Start()
     {
         packageManager = GameObject.FindWithTag("Player").GetComponent<PackageManager>();
@@ -55,7 +57,7 @@ public class StarManager : MonoBehaviour
                 StartCoroutine(SpawnEnemyCoroutine(3, 10, true));
                 break;
             case 5:
-                StartCoroutine(SpawnEnemyCoroutine(2, 5, true));
+                StartCoroutine(SpawnEnemyCoroutine(3, 2, true));
                 break;
         }
         starImages[level - 1].sprite = filledStarImage;
@@ -72,11 +74,17 @@ public class StarManager : MonoBehaviour
     {
         return starLevel;
     }
+    public void EnemyCarDestroyed()
+    {
+        currentCars--;
+        totalKills++;
+        maxEnemies = Mathf.Min(Mathf.FloorToInt(Mathf.Pow(starGainSteepness, totalKills) - 1) + initialMaxEnemies, 100);
+    }
     IEnumerator SpawnEnemyCoroutine(int waveSize, int waveDelay, bool aggressive = false)
     {
-        while (currentCars < maxEnemies)
+        while (true)
         {
-            SpawnEnemy(waveSize, aggressive);
+            if (currentCars < maxEnemies) SpawnEnemy(waveSize, aggressive);
             yield return new WaitForSeconds(waveDelay);
         }
     }
