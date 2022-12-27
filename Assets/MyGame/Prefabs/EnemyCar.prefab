@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcce5aac2ae6e1845a9f39dabc2c6bac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 45
+  speed: 120
   maxVelocityTolerance: 50
 --- !u!50 &3569455504040434542
 Rigidbody2D:
@@ -144,15 +144,15 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 5
-  m_LinearDrag: 5
-  m_AngularDrag: 0.05
+  m_Mass: 1
+  m_LinearDrag: 10
+  m_AngularDrag: 0.5
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &3569455504040434537
 BoxCollider2D:
   m_ObjectHideFlags: 0

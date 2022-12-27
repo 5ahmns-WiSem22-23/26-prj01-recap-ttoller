@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float pushBackForce = 150;
     private Rigidbody2D rb;
+    private float lastBoostTime = 0;
 
     void Start()
     {
@@ -19,8 +20,9 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && Time.time - lastBoostTime > 2f)
         {
+            lastBoostTime = Time.time;
             rb.AddForce(-transform.up * acceleration * defenseForceMultiplier);
         }
     }

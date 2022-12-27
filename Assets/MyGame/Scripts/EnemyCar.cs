@@ -17,7 +17,7 @@ public class EnemyCar : MonoBehaviour
         starManager = GameObject.FindGameObjectWithTag("StarManager").GetComponent<StarManager>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         transform.LookAt(player.transform.position);
         transform.Rotate(new Vector3(0, -90, 0), Space.Self);
