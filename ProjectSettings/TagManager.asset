@@ -8,6 +8,7 @@ TagManager:
   - Obstacle
   - Package
   - DropArea
+  - StarManager
   layers:
   - Default
   - TransparentFX

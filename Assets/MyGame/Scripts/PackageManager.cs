@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class PackagePickupManager : MonoBehaviour
+public class PackageManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject packageCarry;
@@ -14,6 +14,8 @@ public class PackagePickupManager : MonoBehaviour
     private bool hasPackage = false;
     private string[] illegalSpawnAreaTags = { "Obstacle", "DropArea" };
     private List<Collider2D> illegalSpawnAreas = new List<Collider2D>();
+    private int packagesDelivered;
+    private StarManager starManager;
     private void Start()
     {
         foreach (string tag in illegalSpawnAreaTags)
@@ -21,6 +23,7 @@ public class PackagePickupManager : MonoBehaviour
             IEnumerable<Collider2D> obstacles = GameObject.FindGameObjectsWithTag(tag).ToList().Select(x => x.GetComponent<Collider2D>());
             illegalSpawnAreas.AddRange(obstacles);
         }
+        starManager = GameObject.FindGameObjectWithTag("StarManager").GetComponent<StarManager>();
         SpawnPackage();
     }
     private void OnTriggerEnter2D(Collider2D other)
@@ -46,24 +49,30 @@ public class PackagePickupManager : MonoBehaviour
     {
         hasPackage = false;
         packageCarry.SetActive(false);
+        packagesDelivered += 1;
+        starManager.UpdateStarLevel();
         SpawnPackage();
     }
-    private void SpawnPackage()
+    public void SpawnObject(GameObject prefab)
     {
-        float spawnXAreaHalf = spawnArea.localScale.x / 2;
-        float spawnYAreaHalf = spawnArea.localScale.y / 2;
-
-        Vector2 spawnPosition = GenerateSpawnPos(spawnXAreaHalf, spawnYAreaHalf);
+        Vector2 spawnPosition = GenerateSpawnPos();
 
         while (!ValidSpawnPosition(spawnPosition))
         {
-            spawnPosition = GenerateSpawnPos(spawnXAreaHalf, spawnYAreaHalf);
+            spawnPosition = GenerateSpawnPos();
         }
+        Debug.Log(spawnPosition);
 
-        Instantiate(packagePrefab, spawnPosition, Quaternion.identity);
+        Instantiate(prefab, spawnPosition, Quaternion.identity);
     }
-    private Vector2 GenerateSpawnPos(float spawnXAreaHalf, float spawnYAreaHalf)
+    private void SpawnPackage()
     {
+        SpawnObject(packagePrefab);
+    }
+    private Vector2 GenerateSpawnPos()
+    {
+        float spawnXAreaHalf = spawnArea.localScale.x / 2;
+        float spawnYAreaHalf = spawnArea.localScale.y / 2;
         float spawnX = Random.Range(-spawnXAreaHalf + spawnAreaPadding, spawnXAreaHalf - spawnAreaPadding);
         float spawnY = Random.Range(-spawnYAreaHalf + spawnAreaPadding, spawnYAreaHalf - spawnAreaPadding);
         return new Vector2(spawnX, spawnY);
@@ -78,5 +87,9 @@ public class PackagePickupManager : MonoBehaviour
             }
         }
         return true;
+    }
+    public int GetDeliveredPackagesCount()
+    {
+        return packagesDelivered;
     }
 }
