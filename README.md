@@ -17,6 +17,16 @@ Es sollten immer wieder an unterschiedlichen Stellen Pakete auftauchen die wiede
 - Car and Buildings from (City Pack - Top Down - Pixel Art)[https://assetstore.unity.com/packages/2d/textures-materials/city-pack-top-down-pixel-art-195403]
 - Other Art made by Hand
 
+## Special Mechanics und optional Features
+- Drücke die Leertaste um einen Stoß nach vorne zu machen. Dieses Feature hat einen Cooldown
+- Je mehr Pakete man zurück bringt, desto mehr erhöhen sich die Sterne (wie sehr man gesucht ist) und desto mehr Polizei kommt
+- Ramme Polizei Autos um sie zu zerstören
+- Es gibt einen Pfeil beim Auto, welcher anzeigt wo man als nächstes hinfahren sollte
+- Packages spawnen niemals in Gebäuden
+- Schnee mit Unity Particle system
+- Timer und Highscore
+- Unity particle system effekt wenn gegnerisches Auto zerstört wird
+
 ## Packages
 | Package Name | Package ID | Version |
 |:---|:---|:---|
